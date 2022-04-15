@@ -28,6 +28,10 @@ app.get("/home", (req,res) => {
 	res.render("index", {title: 'Home'});
 });
 
+app.get("/log-in", (req,res) => {
+	res.render("log-in", {title: 'log-in'});
+});
+
 
 
 //If user fails to enter a real page address, then the request falls to this method where a 404 error is produced

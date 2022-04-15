@@ -1,12 +1,52 @@
+/* Colour pallet used:
+#22577E
+#5584AC
+#95D1CC
+#FAFFAF
+ */
+
 /* GLOBAL STYLES
 -------------------------------------------------- */
-/* Padding below the footer and lighter body text */
+
+
+/* root variables for color */
+:root{
+  --dark-blue: #22577E;
+  --light-blue: #5584AC;
+  --grey-blue: #95D1CC;
+  --light-yellow: #FAFFAF;
+}
+
+/* Padding below the footer and lighter body text, setting colors for tags */
 
 body {
   padding-top: 3rem;
   padding-bottom: 3rem;
-  color: #5a5a5a;
+  color: white;
+  background-color: var(--grey-blue);
 }
+
+h1,h2,h3,h4,h5,h6{
+  color: var(--light-yellow);
+}
+
+span{
+  color: var(--light-blue);
+}
+
+
+/* setting colors for selectors */
+
+.navbar{
+  background-color: var(--dark-blue);
+}
+
+.btn{
+  background-color: var(--dark-blue);
+  color: white;
+}
+
+
 
 
 /* CUSTOMIZE THE CAROUSEL
