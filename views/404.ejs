@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <%- include(".partials/head.ejs")%>
-  </head>
-  <body>
 
-  </body>
+<head>
+  <%- include("./partials/head.ejs")%>
+</head>
+
+<body class="d-flex justify-content-center">
+  <div class="container mt-5 row">
+    <div class="col-sm-6">
+      <h1 class="lead">Whoops! 404 Error!</h1>
+      <p>Seems like what you are looking for is no-longer here. Please click on the button below to go back to the home page</p>
+      <a href="#" class="btn btn-secondary">Home</a>
+    </div>
+    <div class="col-sm-6">
+      <img src="/images/Medi-Confused.png" alt="Image of Medi the pill bottle being confused">
+    </div>
+  </div>
+</body>
+
 </html>
