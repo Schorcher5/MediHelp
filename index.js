@@ -52,6 +52,13 @@ app.get("/account", (req,res) => {
 	res.render("account", {title: 'Account'});
 });
 
+//Varbiable to determine whether a search has been made or not
+let searched = false;
+
+app.get("/medisearch", (req,res) => {
+	res.render("medisearch",{title: "MediSearch", searched: searched});
+});
+
 
 //If user fails to enter a real page address, then the request falls to this method where a 404 error is produced
 app.use((req,res) => {
