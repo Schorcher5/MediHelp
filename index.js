@@ -29,8 +29,25 @@ app.get("/home", (req,res) => {
 });
 
 app.get("/log-in", (req,res) => {
-	res.render("log-in", {title: 'log-in'});
+	const formItems = [
+		{type: "email", id: "floatingInput", placeholder: "name@example.com", label: "Email address"},
+		{type: "password", id: "floatingPassword", placeholder: "Password", label: "Password"},
+	];
+
+	res.render("form", {title: 'Log-in', formItems: formItems , formGreeting: "Welcome back"});
 });
+
+app.get("/sign-up", (req,res) => {
+	const formItems = [
+		{type: "text", id: "floatingInput", placeholder: "First name", label: "First Name"},
+		{type: "text", id: "floatingInput", placeholder: "Last name", label: "Last Name"},
+		{type: "email", id: "floatingInput", placeholder: "name@example.com", label: "Email address"},
+		{type: "password", id: "floatingPassword", placeholder: "Password", label: "Password"},
+	];
+
+	res.render("form", {title: 'Sign-up', formItems: formItems , formGreeting: "Ready to begin you journey with Medi?"});
+});
+
 
 
 

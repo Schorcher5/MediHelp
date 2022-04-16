@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <%- include("./partials/head.ejs")%>
+
+</head>
+
+<body>
+  <%- include("./partials/navbar.ejs") %>
+  <main class="form-signin align-middle mb-5">
+    <form>
+      <span class="mt-5 mb-2 d-flex justify-content-center">
+        <img src="/images/Medi-Normal.png" alt="" width="72" height="57">
+      </span>
+
+      <h1 class=" h3 mb-3 fw-normal text-center"><%= formGreeting%></h1>
+
+      <% formItems.forEach(item => { %>
+        <div class="form-floating">
+          <input type="<%= item.type %> " class="form-control" id="<%= item.id%> " placeholder="<%= item.placeholder%> ">
+          <label for="<%= item.id%> "><%= item.label%></label>
+        </div>
+      <% }) %>
+
+
+
+
+      <div class="checkbox mb-3 text-center">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+    </form>
+  </main>
+  <%- include("./partials/footer.ejs")%>
+</body>
+
+</html>
