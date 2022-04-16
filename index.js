@@ -64,6 +64,11 @@ app.get("/medibase", (req,res) => {
 	res.render("medibase",{title: "MediSearch", drugItems:drugItems });
 });
 
+app.get("/medinotice", (req,res) => {
+
+	res.render("medinotice",{title: "MediNotice"});
+});
+
 //If user fails to enter a real page address, then the request falls to this method where a 404 error is produced
 app.use((req,res) => {
 	res.status(404).render("404",{title:"404"});
