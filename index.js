@@ -48,7 +48,9 @@ app.get("/sign-up", (req,res) => {
 	res.render("form", {title: 'Sign-up', formItems: formItems , formGreeting: "Ready to begin you journey with Medi?"});
 });
 
-
+app.get("/account", (req,res) => {
+	res.render("account", {title: 'Account'});
+});
 
 
 //If user fails to enter a real page address, then the request falls to this method where a 404 error is produced
