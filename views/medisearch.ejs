@@ -10,10 +10,14 @@
 
   <%- include("./partials/navbar.ejs")%>
 
-
-    <% if(searched) { %>
-    <%- include("./partials/drugitem.ejs")%>
-    <%  }; %>
+  <form class="container mt-5 pt-5 " action="/medisearch" method="post">
+    <p>Enter the medicine you want to search for</p>
+    <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
+    <button class="btn " type="submit">Search</button>
+  </form>
+  <% if(searched) { %>
+  <%- include("./partials/drugitem.ejs")%>
+  <%  }; %>
 
 
 

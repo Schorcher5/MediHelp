@@ -19,6 +19,51 @@ app.set("view engine","ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:true}));
 
+// Setting up the web scrapping function
+
+async function scrape(drugName) {
+	const browser = await puppeteer.launch({});
+	const page = await browser.newPage();
+
+	try {
+		await page.goto("https://www.drugs.com/"+drugName+".html");
+		const drugUse =  (await page.$x("//*[starts-with(text(),'"+drugName+" is')]"))[0];
+		const drugUseText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drugWarnings =  (await page.$x("//*[starts-with(text(),'You should not use')]"))[0];
+		const drugWarningsText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drugDosage =  (await page.$x("//*[starts-with(text(),'Use: ')]"))[0];
+		const drugDosageText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drugAvoid =  (await page.$x("//*[contains(text(),'Avoid ')]"))[0];
+		const drugAvoidText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drugEffects =  (await page.$x("//*[starts-with(text(),'Get emergency medical help ')]"))[0];
+		const drugEffectsText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drugInteractions =  (await page.$x("//*[contains(text(),'other drugs')]"))[0];
+		const drugInteractionsText = await (await f.getProperty("textContent")).jsonValue();
+
+		const drug = {
+			name: drugName,
+			use: drugUseText,
+			warning: drugWarningsText,
+			dosage: drugDosageText,
+			avoid: drugAvoidText,
+			effects: drugEffectsText,
+			interactions: drugInteractionsText};
+
+			browser.close();
+			return drug;
+	}catch (e){
+		console.log(e);
+		browser.close();
+		return null;
+	}
+
+};
+
 // To redirect / request to the home page
 
 app.get("/", (req,res) =>{
@@ -58,6 +103,10 @@ let searched = false;
 
 app.get("/medisearch", (req,res) => {
 	res.render("medisearch",{title: "MediSearch", searched: searched});
+});
+
+app.post("/medisearch", (req,res) => {
+
 });
 
 app.get("/medibase", (req,res) => {
