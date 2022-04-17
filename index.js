@@ -191,17 +191,20 @@ app.get("/medibase", (req, res) => {
 // Method for adding items to medibase
 
 app.get("/add-prescription", (req, res) => {
-  const prescription = new Prescription(searchedDrug);
+	if(Prescription.find({"name": searchedDrug.name}).count() == 0){
+		const prescription = new Prescription(searchedDrug);
 
-  prescription.save()
-    .then((result) => {
-      res.redirect("/medisearch");
+	  prescription.save()
+	    .then((result) => {
+	     
 
-    })
-    .catch((err) => {
-      console.log(err);
-      res.redirect("/medisearch");
-    })
+	    })
+	    .catch((err) => {
+	      console.log(err);
+	   ;
+	    })
+	}res.redirect("/medisearch");
+
 })
 
 app.get("/medinotice", (req, res) => {
