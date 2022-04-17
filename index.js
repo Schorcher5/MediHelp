@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const puppeteer = require("puppeteer");
 
 const app = express();
 
@@ -65,8 +66,8 @@ app.get("/medibase", (req,res) => {
 });
 
 app.get("/medinotice", (req,res) => {
-
-	res.render("medinotice",{title: "MediNotice"});
+	const drugItems = [];
+	res.render("medinotice",{title: "MediNotice", drugItems: drugItems});
 });
 
 //If user fails to enter a real page address, then the request falls to this method where a 404 error is produced
