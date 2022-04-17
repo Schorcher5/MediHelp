@@ -5,7 +5,7 @@
     <div class="col d-flex align-items-start">
       <div>
         <h4 class="fw-bold mb-0">
-          <&= drug.name %>
+          <%= drug.name %>
         </h4>
         <p><%= drug.use %></p>
       </div>
@@ -13,7 +13,7 @@
     <div class="col d-flex align-items-start">
       <div>
         <h4 class="fw-bold mb-0">Warnings</h4>
-        <p><%= drug.warning%></p>
+        <p><%= drug.warning%> </p>
       </div>
     </div>
     <div class="col d-flex align-items-start">
@@ -33,12 +33,6 @@
       <div>
         <h4 class="fw-bold mb-0">Side effects</h4>
         <p><%= drug.effects %></p>
-      </div>
-    </div>
-    <div class="col d-flex align-items-start">
-      <div>
-        <h4 class="fw-bold mb-0">Interactions</h4>
-        <p><%= drug.interactions %></p>
       </div>
     </div>
   </div>

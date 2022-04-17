@@ -24,26 +24,24 @@ app.use(express.urlencoded({extended:true}));
 async function scrape(drugName) {
 	const browser = await puppeteer.launch({});
 	const page = await browser.newPage();
-
-	try {
+		drugName = drugName.trim();
+		drugName = drugName.charAt(0).toUpperCase() + drugName.slice(1);
 		await page.goto("https://www.drugs.com/"+drugName+".html");
-		const drugUse =  (await page.$x("//*[starts-with(text(),'"+drugName+" is')]"))[0];
-		const drugUseText = await (await f.getProperty("textContent")).jsonValue();
+		const drugUse =  (await page.$x("//*[contains(text(),'is an')]"))[0];
+		const drugUseText = await (await drugUse.getProperty("textContent")).jsonValue();
 
-		const drugWarnings =  (await page.$x("//*[starts-with(text(),'You should not use')]"))[0];
-		const drugWarningsText = await (await f.getProperty("textContent")).jsonValue();
+		const drugWarnings =  (await page.$x("//*[starts-with(text(),'You should not')]"))[0];
+		const drugWarningsText = await (await drugWarnings.getProperty("textContent")).jsonValue();
 
-		const drugDosage =  (await page.$x("//*[starts-with(text(),'Use: ')]"))[0];
-		const drugDosageText = await (await f.getProperty("textContent")).jsonValue();
+		const drugDosage =  (await page.$x("//*[contains(text(),' mg ')]"))[0];
+		const drugDosageText = await (await drugDosage.getProperty("textContent")).jsonValue();
 
 		const drugAvoid =  (await page.$x("//*[contains(text(),'Avoid ')]"))[0];
-		const drugAvoidText = await (await f.getProperty("textContent")).jsonValue();
+		const drugAvoidText = await (await drugAvoid.getProperty("textContent")).jsonValue();
 
 		const drugEffects =  (await page.$x("//*[starts-with(text(),'Get emergency medical help ')]"))[0];
-		const drugEffectsText = await (await f.getProperty("textContent")).jsonValue();
+		const drugEffectsText = await (await drugEffects.getProperty("textContent")).jsonValue();
 
-		const drugInteractions =  (await page.$x("//*[contains(text(),'other drugs')]"))[0];
-		const drugInteractionsText = await (await f.getProperty("textContent")).jsonValue();
 
 		const drug = {
 			name: drugName,
@@ -51,16 +49,11 @@ async function scrape(drugName) {
 			warning: drugWarningsText,
 			dosage: drugDosageText,
 			avoid: drugAvoidText,
-			effects: drugEffectsText,
-			interactions: drugInteractionsText};
+			effects: drugEffectsText};
 
 			browser.close();
+			console.log(drug);
 			return drug;
-	}catch (e){
-		console.log(e);
-		browser.close();
-		return null;
-	}
 
 };
 
@@ -98,14 +91,22 @@ app.get("/account", (req,res) => {
 	res.render("account", {title: 'Account'});
 });
 
-//Varbiable to determine whether a search has been made or not
-let searched = false;
 
 app.get("/medisearch", (req,res) => {
-	res.render("medisearch",{title: "MediSearch", searched: searched});
+
+	res.render("medisearch",{title: "MediSearch", searched: false});
 });
 
+// Methods for searching drugs
 app.post("/medisearch", (req,res) => {
+
+ scrape(req.body.search)
+ .then((drug) => {
+		res.render("medisearch",{title: "MediSearch", searched: true, drug:  drug});
+ })
+ .catch((err) => {
+	 res.status(404).render("404",{title:"404"});
+ })
 
 });
 
