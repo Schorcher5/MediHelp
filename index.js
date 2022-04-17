@@ -14,7 +14,7 @@ mongoose.connect(mongoDBURL, {
     useUnifiedTopology: true
   })
   .then(result => app.listen(3000, () => console.log("Server is running")))
-  .catch(err => console.log(err));
+  .catch(err => console.log(err.servers));
 
 // Sets up the view engine which in this case is the ejs or embedded javascipt engine
 app.set("view engine", "ejs");
@@ -196,7 +196,7 @@ app.get("/add-prescription", (req, res) => {
 
 	  prescription.save()
 	    .then((result) => {
-	     
+
 
 	    })
 	    .catch((err) => {
